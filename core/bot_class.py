@@ -1,6 +1,6 @@
 #!usr/bin/env python3.6
 # -*- coding: utf-8 -*-
-from PyBot.core import log as log
+from PyBot.core import log 
 from PyBot.core import commands as comd
 import socket
 import ssl
@@ -25,7 +25,7 @@ class bot:
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 0)
         self.sock.setblocking(True)
         if ssl:
-            return self.sock = ssl.wrap_socket(self.sock)
+            self.sock = ssl.wrap_socket(self.sock)
         else:
             pass
     #connect to the server...
@@ -49,7 +49,7 @@ class bot:
         try:
             self.sock.send((data).encode('UTF-8'))
         except Exception as e:
-            print("There was an error sending the data...")
+            print("There was an error sending the data...\n{0}".format(e))
             log.report_error(e)
     #send a privmsg to a room
     def send_message(self, msg):
@@ -88,8 +88,8 @@ class bot:
             else:
                 data = str(data)
                 return data
-       except(Exception) as e:
-           raise Exception("The following Exception occured.\n{0}".format(e))
+        except(Exception) as e:
+            raise Exception("The following Exception occured.\n{0}".format(e))
            
     def send_user(self):
         try:
@@ -107,26 +107,6 @@ class bot:
             self.send_data(nick)
             print(nick)
         except Exception as e:
-            print("There was an error sending the nick...")
+            print("There was an error sending the nick...\n{0}".format(e))
             log.report_error(e)
-'''
-    def command(self, data_sent):
-        answer = comd.find_command(data_sent, self.chan, self.nick)
-        if answer is None:
-            pass
-        elif "op" == answer[0]:
-            self.send_data("MODE {} +o {}\r\n".format(self.chan, answer[1]))
-        elif "unop" == answer[0]:
-            self.send_data("MODE {} -o {}\r\n".format(self.chan, answer[1]))
-        elif "ban" in answer[0]:
-            self.send_data("KICK {} {} {}\r\n".format(self.chan, answer[1], "You're fucking gay."))
-            self.send_data("MODE {} +b {}!*@*\r\n".format(self.chan, answer[1]))
-        elif "!file" in answer:
-            file_name = re.findall(r"!file\s+([a-zA-Z0-9|x]*)", answer)
-            _file = open(file_name[0] + ".txt", "r")
-            for x in _file:
-                self.send_message(x)
-        else:
-            payload = str(answer)
-            self.send_message(payload)
-'''
+    
