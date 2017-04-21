@@ -1,8 +1,13 @@
 
 #!usr/bin/env python3.6
 # -*- coding: utf-8 -*-
+<<<<<<< HEAD
 
 
+=======
+from PyBot.core import log 
+from PyBot.core import commands as comd
+>>>>>>> origin/master
 import socket
 import ssl
 
@@ -26,11 +31,19 @@ class Bot:
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0)
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 0)
         self.sock.setblocking(True)
+<<<<<<< HEAD
 
         if ssl_on:
             self.sock = ssl.wrap_socket(self.sock)
 
     # Connect to the server...
+=======
+        if ssl:
+            self.sock = ssl.wrap_socket(self.sock)
+        else:
+            pass
+    #connect to the server...
+>>>>>>> origin/master
     def connect(self):
         try:
             log.log_file()
@@ -52,7 +65,7 @@ class Bot:
         try:
             self.sock.send(data.encode('UTF-8'))
         except Exception as e:
-            print("There was an error sending the data...")
+            print("There was an error sending the data...\n{0}".format(e))
             log.report_error(e)
 
     # Send a privmsg to a channel
@@ -97,9 +110,15 @@ class Bot:
             else:
                 data = str(data)
                 return data
+<<<<<<< HEAD
         except Exception as e:
             raise Exception("The following Exception occurred.\n{0}".format(e))
 
+=======
+        except(Exception) as e:
+            raise Exception("The following Exception occured.\n{0}".format(e))
+           
+>>>>>>> origin/master
     def send_user(self):
         try:
             print("Sending the user....")
@@ -120,8 +139,9 @@ class Bot:
             self.send_data(nick)
             print(nick)
         except Exception as e:
-            print("There was an error sending the nick...")
+            print("There was an error sending the nick...\n{0}".format(e))
             log.report_error(e)
+<<<<<<< HEAD
 
     def command(self, data_sent):
         try:
@@ -135,3 +155,6 @@ class Bot:
         except Exception as e:
             print("There was an error sending the nick...")
             log.report_error(e)
+=======
+    
+>>>>>>> origin/master
