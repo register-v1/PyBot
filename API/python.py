@@ -9,7 +9,6 @@ def search_python(data):
         my_args = re.findall(
             r'(&[a-zA-Z]+)\s+(\d|\d\.\d|\d\.\d\.\d)\s+((?:(?:(?:[a-zA-Z]|\-)*|\s+){1,7}))',
             data)
-        print("Args found:\t", my_args)
         version = my_args[0][1]
         search = my_args[0][2]
         #if version between 3.7 and 2.0 we good to go bb
@@ -23,7 +22,6 @@ def search_python(data):
         print("There was an error. Version number is probably invalid: ", e)
         return "There was an error. Invalid version number."
     link = ("https://duckduckgo.com/html/?q=python{}+{}".format(version, search))
-    print(link)
     #basic header
     headers = {'Accept-Encoding': 'identity'}
     #request the duckduckgo url

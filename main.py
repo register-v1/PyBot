@@ -1,34 +1,82 @@
 # -*- coding: utf-8 -*-
-from PyBot.core.bot_class import *
+import optparse
+import asyncio
+import time
+from core import log
+from core.bot_class import Bot
+
+loop = asyncio.get_event_loop()
+def exe(coro): return loop.run_until_complete(coro)
+
+config = {"server": "irc.anonops.com", "port": 6697, "chans": ["#bots"]}
+
+#Main loop
+def authenticate():
+    global test
+    test = Bot(config["server"], config["port"], config["chans"])
+    exe( test.connect() )
+    data = str( exe( test.recv_data() ))
+    log.log_write(data)
+    exe( test.send_nick() )
+    exe( test.send_user() )
+    #test.register_nickserv()
+    data = str( exe( test.recv_data() ))
+    exe( test.identify() )
+    exe( test.mode_set() )
+    receive_data(test) 
+
+    #exe( test.send_message("Hello!", config["chans"]) )
 
 
-# Should be moved to main.py soon....
-#channel can also be a list if you want to join more then one channel ex: ["#python", "#deadforest"]
-test = Bot("irc.website.com", 6697, "#python", True)
-# connect
-test.connect()
-# recive data and log it
-data = test.recv_data()
-log.log_write(data)
-# send nick and user name
-test.send_nick()
-test.send_user()
-my_bool = True
-# First loop to get the server's login message
+#test
+def receive_data(bot, check=True):
+    while check:
+        data = str(exe(bot.recv_data()))
+        """
+        Armillaria: (:is now your hidden)
+        Anonops: (:Global!services@anonops)
+        """
+        if config['server'] == 'irc.anonops.com':
+        
+            if data.find(':Global!services@anonops') != -1:
+                exe(bot.join())
+                check = False
+                receive_command(bot)
+        elif config['server'] == 'irc.armillaria.net':
+        
+            if data.find(':is now your hidden') != -1:
+                exe(bot.join())
+                check = False
+                receive_command(bot)
 
-while my_bool:
-    data = test.recv_data()
-    data = str(data)
-    # generally the last message that is send after you login on a server
-    if data.find(':is now your hidden') != -1:
-        # join a channel
-        test.join()
-        # quit the other loop
-        my_bool = False
-        # start an other loop to get info and check if it contains a command
-        while True:
-            data = test.recv_data()
-            data = str(data)
 
-            test.command(data)
+def receive_command(bot):
+    while True:
+        data = str( exe(bot.recv_data()) )
+        exe(bot.command(data))
 
+
+def check_input():
+    parser = optparse.OptionParser("%prog -n <bot_file>")
+    parser.add_option("-s", dest="server", help="irc server")
+    parser.add_option("-p", dest="port", help="irc port [6697]")
+    parser.add_option("-c", dest="channels", help="channels the bot should connect to")
+    (options, args) = parser.parse_args()
+
+    if not (options.server or config["server"]):
+        parser.print_help()
+        exit(0)
+
+    config["server"] = options.server if options.server else config["server"]
+    config["port"] = int(options.port) if options.port else 6697
+    config["chans"] = options.channels.split(',') if options.channels else config["chans"]
+
+
+def main():
+    check_input()
+    authenticate()
+    authenticate() #i tried again to see if it would work the 2nd time
+
+
+if __name__ == "__main__":
+    main()
