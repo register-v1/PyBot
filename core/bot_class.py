@@ -19,7 +19,7 @@ class Bot:
     def __init__(self, server, port, chan, ssl_on=True):
         self.config = {
             "server": server,
-            "chan": chan,
+            "chans": chan,
             "port": port,
             "name": "PyBot_beta",    # Name
             "nick": "PyBot_beta",    # Nick
@@ -52,11 +52,10 @@ class Bot:
     def kill(self):
         return self.sock.close()
     
-    async def mode_set(self):   # we might add \r\n
-        #self.sock.send(("/mode {0} +B\r".format(self.config['name']).encode('UTF-8')))
+    async def mode_set(self):  
         try:
             print("Setting user mode...")
-            self.sock.send(("MODESET {0} +B\r".format(self.config['nick'])).encode('UTF-8'))        
+            self.sock.send(("MODE {0} +B\r\n".format(self.config['nick'])).encode('UTF-8'))        
         except Exception as e:
             print("There was an error setting mode...")
             log.report_error(e)
@@ -65,9 +64,9 @@ class Bot:
 
         try:  
             print("Identifying with nickserv...")
-            self.sock.send(("NICKSERV IDENTIFY {0} {1}\r".format(self.config['nick'], self.config['pass']).encode('UTF-8')))
+            password1 = "PythonIsBadAssAsFuckYouMotherFucker"
+            self.sock.send(("PRIVMSG NICKSERV IDENTIFY {0}\r\n".format(password1).encode('UTF-8')))
         except Exception as e:
-            count = count-1
             print("There was an error identifying...")
             log.report_error(e)       
     #def register_nickserv(self):
@@ -78,7 +77,7 @@ class Bot:
         try:
             self.sock.send(data.encode('UTF-8'))
         except Exception as e:
-            print("There was an error sending the data...")
+            print("There was an error sending the data...\n {0}".format(e))
             log.report_error(e)
 
     # Send a privmsg to a channel
@@ -96,22 +95,27 @@ class Bot:
         don't forget to put them in strings with a '#' at the start.
     """
 
-    async def join(self):
+    def join(self):
         try:
-            if isinstance(self.config["chan"], list):
-                for x in self.config["chan"]:
+            if isinstance(self.config["chans"], list):
+                for x in self.config["chans"]:
                     join = "JOIN :{0}\r\n".format(x)
-                    print(join)
                     exe(self.send_data(join))
             else:
-                join = "JOIN :{0}\r\n".format(self.config["chan"])
+                join = "JOIN :{0}\r\n".format(self.config["chans"])
                 print(join)
                 exe(self.send_data(join))
 
         except Exception as e:
             print("There was an exception..")
             log.report_error(e)
-
+            
+    async def join_python(self):
+        try:
+            exe(self.sock.send("JOIN :#PYTHON\r\n"))
+        except(Exception) as e:
+            print("This error occured\n{0}".fromat(e))
+            
     async def recv_data(self):
         try:
             data = self.sock.recv(4096)

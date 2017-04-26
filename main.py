@@ -8,12 +8,12 @@ from core.bot_class import Bot
 loop = asyncio.get_event_loop()
 def exe(coro): return loop.run_until_complete(coro)
 
-config = {"server": "irc.anonops.com", "port": 6697, "chans": ["#bots"]}
+config = {"server": "irc.anonops.com", "port": 6697, "chans": ["#bots", "#python"]}
 
 #Main loop
 def authenticate():
     global test
-    test = Bot(config["server"], config["port"], config["chans"])
+    test = Bot(config["server"], config["port"], ["#bots", "#python"])
     exe( test.connect() )
     data = str( exe( test.recv_data() ))
     log.log_write(data)
@@ -21,8 +21,13 @@ def authenticate():
     exe( test.send_user() )
     #test.register_nickserv()
     data = str( exe( test.recv_data() ))
+    # These are done multiple times on purpose. If it's done once it may fail.
     exe( test.identify() )
+    exe( test.identify() )
+    exe( test.identify() )        
     exe( test.mode_set() )
+    exe( test.mode_set() )
+    exe( test.mode_set() )        
     receive_data(test) 
 
     #exe( test.send_message("Hello!", config["chans"]) )
@@ -39,32 +44,42 @@ def receive_data(bot, check=True):
         if config['server'] == 'irc.anonops.com':
         
             if data.find(':Global!services@anonops') != -1:
-                exe(bot.join())
+                bot.join()
                 check = False
                 receive_command(bot)
     
                 #exe( bot.register() )
-                exe( bot.recv_data() )
+                exe(bot.recv_data())
                 exe(bot.identify() )
                 exe(bot.recv_data() )
                 exe(bot.mode_set() )
+                bot.recv_data()
+                bot.join() 
+                bot.join_python()
+                exe(bot.identify() )
                 exe(bot.recv_data() )
-                exe(bot.join() )
+                exe(bot.mode_set() )
                 check = False
                 receive_command(bot) 
+                
+                
                               
         elif config['server'] == 'irc.armillaria.net':
         
             if data.find(':is now your hidden') != -1:
-                exe(bot.join())
+                bot.join()
                 check = False
                 receive_command(bot) 
 
 
 def receive_command(bot):
     while True:
-        data = str( exe(bot.recv_data()) )
-        exe(bot.command(data))
+        try:
+            data = str( exe(bot.recv_data()) )
+            exe(bot.command(data))
+        except(KeyboardInterrupt):
+            import sys
+            return self.sock.close(), sys.exit()
 
 
 def check_input():
@@ -86,7 +101,9 @@ def check_input():
 def main():
     check_input()
     authenticate()
-    authenticate() #i tried again to see if it would work the 2nd time
+    authenticate()
+    authenticate()
+
 
 
 if __name__ == "__main__":

@@ -81,10 +81,13 @@ wise_sentences = [
 "Practice makes perect!",
 "Rome was not built in a day!",
 "Shoot for the moon! Even if you miss, you'll land amongst the stars!",
-"There is no such thing as a hacker that never made a mistake.",
-"Learning to code is like growing a tree, takes time.",
-"If you work for Microsoft or Apple, get a life.",
-"It is easier to build good habits than break bad ones"
+"There is no such thing as a hacker that never made a mistake - Anon",
+"Learning to code is like growing a tree, takes time - Anon",
+"If you work for Microsoft or Apple, get a life - Anon",
+"It is easier to build good habits than break bad ones - Forgotton",
+"Education makes man unfit for a slave - Frederick Douglas",
+"Life as a script kiddie is not a life worth living - Anon",
+"Arguing you don't need privacy because you have nothing to hide, is like saying you don't need freedom of speech because you have nothing to say - Edward Snowden"
 
 ]
 
