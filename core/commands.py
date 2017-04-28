@@ -85,10 +85,22 @@ def find_command(data, channels, bot_name):
             def func106(): return "&turing - will tell you what a turing complete language is. &gil explains GIL"
             def func2(): return "&urlpls - This will give you a random tutorial url, &hack, &gnu, &ipython and &science"
             
-            def stack1(): return func0(), func1(), func10(), func100(), time.sleep(2), func101(), func102()
+            def stack1(): return func0(), func1(), func10(), func100(), func101(), func102()
             def stack2(): return func103(), func104(), func105(), func111(), func106(), func2()
             
-            return stack1(), stack2()
+            return stack1(), time.sleep(1), stack2()
+            
+        elif (cmd in "&pyai"):
+            def func00(): return "Here is the URL for Artificial Intelligent Packages:  https://wiki.python.org/moin/PythonForArtificialIntelligence"
+            def func01(): return "It doesn't include all of the Artificial Intelligent Packages, but is a start."
+            
+            return str(func00()) + ' ' + str(func01())
+            
+        elif (cmd in "&url"):
+            num = re.findall(r"&url ([a-zZA-Z0-9|\-|\_]+)", num)
+            return "This is the URL: {0}".format(wisdom.url(int(num)))        
+
+          
             
         elif (cmd in "&pip"):
             def func00(): return "pip is a python package manager similar to apt-get. It installs modules and packages,"
@@ -124,7 +136,7 @@ def find_command(data, channels, bot_name):
             return exe( test.join_python())
             
         elif (cmd in "&rekt"):
-            name = re.findall(r"&weed ([a-zZA-Z0-9|\-|\_]+)", data)
+            name = re.findall(r"&rekt ([a-zZA-Z0-9|\-|\_]+)", data)
             if name:
                 return "Damn, {} knows that {} just got &rekt()".format(bot_name, name[0])
             else:
@@ -171,6 +183,9 @@ def find_command(data, channels, bot_name):
             def func11(): return "https://www.quora.com/Why-does-the-JVM-not-have-a-GIL-while-the-Ruby-and-Python-interpreters-do "  
             
             return func00(), func01(), func10(), func11()
+            
+        elif (cmd in "&beginner"):
+            return "Starting off with codecademy is a good start if you're a 100% beginner! Be sure to check our library"    
             
             
         elif "JOIN" in data and [] == privmsg:

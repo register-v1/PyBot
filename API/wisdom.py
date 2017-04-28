@@ -110,4 +110,6 @@ def wisdom(): return wise_sentences[r.randint(0, len(wise_sentences))]
 
 def urlpls(): return urls[r.randint(0, len(wise_sentences))]
 
+def url(num): data = urls[num] ; return data
+
  

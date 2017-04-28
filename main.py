@@ -23,11 +23,15 @@ def authenticate():
     data = str( exe( test.recv_data() ))
     # These are done multiple times on purpose. If it's done once it may fail.
     exe( test.identify() )
+    exe( test.mode_set() )    
+    data = str( exe( test.recv_data() ))    
+    exe( test.identify() )       
+    exe( test.mode_set() )
     exe( test.identify() )
     exe( test.identify() )        
     exe( test.mode_set() )
     exe( test.mode_set() )
-    exe( test.mode_set() )        
+    exe( test.mode_set() )             
     receive_data(test) 
 
     #exe( test.send_message("Hello!", config["chans"]) )
