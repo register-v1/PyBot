@@ -32,16 +32,11 @@ def find_command(data, channels, bot_name):
         elif (cmd in "&weed"):
             name = re.findall(r"&weed ([a-zZA-Z0-9|\-|\_]+)", data)
             if name:
-                return "{} rolls a blunt for {} and passes it.".format(bot_name, name[0])
+                return "{} rolls a joint for {} and passes it.".format(bot_name, name[0])
             else:
-                return "{} rolls a blunt for {} and passes it.".format(bot_name, privmsg[0][0])
+                return "{} rolls a joint for {} and passes it.".format(bot_name, privmsg[0][0])
                 
-        elif (cmd in "&beer"):
-            name = re.findall(r"&beer ([a-zZA-Z0-9|\-|\_]+)", data)
-            if name:
-                return "{} pours a mug of beer for {} and slides it down.".format(bot_name, name[0])
-            else:
-                return "{} pours a mug of beer for {} and slides it down.".format(bot_name, privmsg[0][0])
+
                 
         elif (cmd in "&wisdom"):
             return_value =  wisdom.wisdom()
@@ -66,40 +61,43 @@ def find_command(data, channels, bot_name):
             return "Here is the URL for PEP8: https://www.python.org/dev/peps/pep-0008/"
             
         elif (cmd in "&creds"):
-            return "Credits for GPL development of this bot goes to r0073d, Woz & others. Credit for Ghostbin go to revaa and others."
+            return "Credits for GPL development of this bot goes to r0073d, Woz, v1 & others. Credit for Ghostbin go to revaa, v1 and others."
             
         elif (cmd in "&science"): 
             return "Science Bitches!!  https://www.youtube.com/watch?v=9Cd36WJ79z4"
             
         elif (cmd in "&help"):
-            def func0(): return "Commands for non-op users include:"
-            def func1(): return "&pep8 - Gives you pep8 documentation : &pip - Pip documentation"
-            def func111(): return "&pypi -  Gives you quick access to Python package index"
-            def func10(): return "&sockets - Gives you documentation for sockets. Needed for networking"
-            def func100(): return "&keylogger, - Gives you a url to a simple keylogger"
-            def func101(): return "&whypy3 - Tells you why you should move to python3 and not python2"
-            def func102(): return "&wisdom - Givs you a random quote for wisdom"
-            def func103(): return "&troll - Randomly trolls. If you over use this, you will be kicked."
-            def func104(): return "&search - Searches python documentation : syntax &search [version] [item]"
-            def func105(): return "&beer and &weed give you some of the good stuff."
-            def func106(): return "&turing - will tell you what a turing complete language is. &gil explains GIL"
-            def func2(): return "&urlpls - This will give you a random tutorial url, &hack, &gnu, &ipython and &science"
-            
-            def stack1(): return func0(), func1(), func10(), func100(), func101(), func102()
-            def stack2(): return func103(), func104(), func105(), func111(), func106(), func2()
-            
-            return stack1(), time.sleep(1), stack2()
+            return "Please see this url: https://bpaste.net/show/2a53b4f4511e"
             
         elif (cmd in "&pyai"):
             def func00(): return "Here is the URL for Artificial Intelligent Packages:  https://wiki.python.org/moin/PythonForArtificialIntelligence"
-            def func01(): return "It doesn't include all of the Artificial Intelligent Packages, but is a start."
+            def func01(): return "https://www.youtube.com/watch?v=OGxgnH8y2NM&list=PLQVvvaa0QuDfKTOs3Keq_kaG2P55YRn5v"
             
             return str(func00()) + ' ' + str(func01())
             
+        elif (cmd in "&sql"):
+            return "Please watch this for SQL : https://www.youtube.com/watch?v=ciNHn38EyRc"    
+            
+        elif (cmd in "&cookie"):
+            return "Please watch this for cookies : https://www.youtube.com/watch?v=T1QEs3mdJoc"
+            
+        elif (cmd in '&bash'):
+            return 'http://stackoverflow.com/questions/13745648/running-bash-script-from-within-python'    
+            
         elif (cmd in "&url"):
-            num = re.findall(r"&url ([a-zZA-Z0-9|\-|\_]+)", num)
-            return "This is the URL: {0}".format(wisdom.url(int(num)))        
+            num = re.findall(r"&url ([a-zZA-Z0-9|\-|\_]+)", data)
+            if num:
+                return "This is the URL: {0}".format(wisdom.url(int(num)))        
+            else:
+                return "This is the URL: {0}".format(wisdom.url(int(privmsg[0][0])))
 
+
+        elif (cmd in "&beer"):
+            name = re.findall(r"&beer ([a-zZA-Z0-9|\-|\_]+)", data)
+            if name:
+                return "{} pours a mug of beer for {} and slides it down.".format(bot_name, name[0])
+            else:
+                return "{} pours a mug of beer for {} and slides it down.".format(bot_name, privmsg[0][0])
           
             
         elif (cmd in "&pip"):
@@ -178,15 +176,44 @@ def find_command(data, channels, bot_name):
             
         elif (cmd in "&gil"):
             def func00(): return "GIL is GLobal Interpreter Lock. It is when a program is bound to 1 core of a CPU. "
-            def func01(): return "This problem applies to computers with a CPU having 4 cores. The program is still trapped."
+            def func01(): return "This problem applies to programs that run on a CPU with multiple cores, and has been an issue for years."
             def func10(): return "Python, Ruby, and other languages are affected by the GIL. To learn more, see :  "
             def func11(): return "https://www.quora.com/Why-does-the-JVM-not-have-a-GIL-while-the-Ruby-and-Python-interpreters-do "  
+            def func100(): return "https://www.youtube.com/watch?v=l_HBRhcgeuQ      <- Explains more"
             
-            return func00(), func01(), func10(), func11()
+            return func00(), func01(), func10(), func11(), func100()
             
         elif (cmd in "&beginner"):
-            return "Starting off with codecademy is a good start if you're a 100% beginner! Be sure to check our library"    
+            def func00(): return "Starting off with codecademy is a good start if you're a 100% beginner! Be sure to check our library in the topic!"
+            def func01(): return "If you are past the level of codecademy, it is recommended to start a github and work on a project"
             
+            return func00(), func01()
+            
+        elif (cmd in "&songpls"):
+            result  = wisdom.songpls()
+            return "Random Musix: {0}".format(result)        
+            
+        elif (cmd in "&ai"):
+            return "https://www.youtube.com/watch?v=OGxgnH8y2NM&list=PLQVvvaa0QuDfKTOs3Keq_kaG2P55YRn5v"
+            
+        elif (cmd in "&crypto"):
+            def func00(): return "Cryptographay is a huge field in it's own right. If you want the basics, then please see:"
+            def func01(): return "https://cryptography.io/en/latest/   pyaes and pycrypto have also been found useful"
+            
+            return func00(), func01()
+            
+        elif (cmd in "&version"):
+            return "This is beta version"    
+            
+        elif (cmd in '&charge'):
+            return "http://imgur.com/gallery/1M1WhGN"   
+            
+        elif (cmd in "obfuscated"):
+            return "http://preshing.com/20131219/bitcoin-address-generator-in-obfuscated-python/"     
+            
+        elif (cmd in "&randomtopic"):
+            result = wisdom.randomtopic()    
+            return "{0}".format(result)
             
         elif "JOIN" in data and [] == privmsg:
                 name = re.findall(r":([a-zA-Z0-9|\-|\.|\_]+)!", data)

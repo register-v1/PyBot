@@ -87,7 +87,8 @@ wise_sentences = [
 "It is easier to build good habits than break bad ones - Forgotton",
 "Education makes man unfit for a slave - Frederick Douglas",
 "Life as a script kiddie is not a life worth living - Anon",
-"Arguing you don't need privacy because you have nothing to hide, is like saying you don't need freedom of speech because you have nothing to say - Edward Snowden"
+"A person who never made a mistake, never tried anything new - Einstein",
+
 
 ]
 
@@ -99,6 +100,23 @@ urls = [
 "https://www.youtube.com/watch?v=N4mEzFDjqtA - Python in one video : Derek Banas",
 "https://www.youtube.com/watch?v=XXmzYY03t64 - SysAdmin's Guide to Python",
 "https://www.youtube.com/watch?v=s1SkCYMnfbY - MulitProcessing with Python",
+"https://www.youtube.com/watch?v=l_HBRhcgeuQ - Global Interpreter Lock",
+"https://www.youtube.com/watch?v=ciNHn38EyRc - SQL Injections"
+]
+
+
+topics = [
+"Forensics! - https://digital-forensics.sans.org/community/papers/gcfa/grow-forensic-tools-taxonomy-python-libraries-helpful-forensic-analysis_6879",
+"AI! - https://www.youtube.com/watch?v=OGxgnH8y2NM&list=PLQVvvaa0QuDfKTOs3Keq_kaG2P55YRn5v"
+]
+
+music = [
+"https://www.youtube.com/watch?v=X6t3CVafuec : YTCracker - Bazaar",
+"https://www.youtube.com/watch?v=ieDBrlKnaAM : YTCracker - Starship",
+"https://www.youtube.com/watch?v=2tRKH_BSsk0 : YTCracker - Social Engineering",
+"https://www.youtube.com/watch?v=lIuEuJvKos4 : Astrix - Jungle Walk",
+"https://www.youtube.com/watch?v=FoUWHfh733Y : Dual Core - All the things",
+"https://www.youtube.com/watch?v=zeIjmvZZ_SQ : Zearle - Hackers and Crackers"
 ]
 
 
@@ -108,8 +126,12 @@ def troll():
     
 def wisdom(): return wise_sentences[r.randint(0, len(wise_sentences))]
 
-def urlpls(): return urls[r.randint(0, len(wise_sentences))]
+def urlpls(): return urls[r.randint(0, len(urls))]
 
 def url(num): data = urls[num] ; return data
+
+def songpls(): return music[r.randint(0, len(music))]
+
+def randomtopic(): return topics[r.randint(0, len(topics))]
 
  
