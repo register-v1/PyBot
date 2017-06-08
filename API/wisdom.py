@@ -89,7 +89,7 @@ wise_sentences = [
 "Life as a script kiddie is not a life worth living - Anon",
 "A person who never made a mistake, never tried anything new - Einstein",
 "If you're not willing to learn code, you don't deserve to know how  to code - v1",
-""
+"Well being worth a god damn comes with an ability to not be a complete and total retard all the time ~ mickers"
 ]
 
 urls = [
@@ -118,6 +118,14 @@ topics = [
 
 ]
 
+sciences = [
+"https://www.youtube.com/watch?v=9Cd36WJ79z4 : Poetry of Reality",
+"https://www.youtube.com/watch?v=1PT90dAA49Q : Wave of Reason",
+"https://www.youtube.com/watch?v=zSgiXGELjbc : Glorious Dawn - Carl Sagan",
+"https://www.youtube.com/watch?v=vioZf4TjoUI : The Cosmic Perspective",
+"https://www.youtube.com/watch?v=hOLAGYmUQV0 : The Unbroken Thread"
+]
+
 music = [
 "https://www.youtube.com/watch?v=X6t3CVafuec : YTCracker - Bazaar",
 "https://www.youtube.com/watch?v=ieDBrlKnaAM : YTCracker - Starship",
@@ -127,13 +135,35 @@ music = [
 "https://www.youtube.com/watch?v=zeIjmvZZ_SQ : Zearle - Hackers and Crackers",
 "https://www.youtube.com/watch?v=v1BXfMNfjFo : Deep Space House 061",
 "https://www.youtube.com/watch?v=scPU1tTIg7Y : VOICIANS - Stranger",
-"https://www.youtube.com/watch?v=8fIjqPqJYhA : VOICIANS - Wolves"
+"https://www.youtube.com/watch?v=8fIjqPqJYhA : VOICIANS - Wolves",
+"https://www.youtube.com/watch?v=8EQzx-OzQmU : Wavve - 9 is God",
+"https://www.youtube.com/watch?v=2GLGZQ4Y8SM : YTCracker - Crack",
+"https://www.youtube.com/watch?v=YEP7rhDuWVE : YTCracker - Untouchable",
+"https://www.youtube.com/watch?v=Sr8ILq1a_yw : Dual Core - 0x0A Commandments",
+"https://www.youtube.com/watch?v=yc7_NHx6oHw : YTCracker - Packets",
+"https://www.youtube.com/watch?v=YrRa6dEkzmk : Beat Hackers - Experience",
+"https://www.youtube.com/watch?v=f04pC0_U5-I : Talamasca - Psychedelic Trance"
 ]
 
+
+noob_quotes = [
+"So if I want to write a maleware i must use a github? ~ EniGmis7",
+"Windows wouldn't be popular if microsoft didn't know what they were doing ~ leaxyz",
+"how hax facebook? ~ Virtually every noob ever.",
+"I'm a hacker. Can someone help me reverse an md5? ~ MoHD"
+]
+
+def noob():
+  data = noob_quotes[r.randint(0, len(noob_quotes))]
+  return data
 
 def troll():
     troll = sentences[r.randint(0, len(sentences)-1)]
     return troll
+
+def science(): return sciences[r.randint(0, len(sciences))]  
+
+def science_song(number): data = sciences[number] ; return data  
     
 def wisdom(): return wise_sentences[r.randint(0, len(wise_sentences))]
 

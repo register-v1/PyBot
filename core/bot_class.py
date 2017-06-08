@@ -1,4 +1,3 @@
-
 #!usr/bin/env python3.6
 # -*- coding: utf-8 -*-
 
@@ -8,9 +7,10 @@ import ssl
 import re
 
 from core import commands
-from core import log
+
 
 loop = asyncio.get_event_loop()
+async def wait(coro): return await coro
 def exe(coro): return loop.run_until_complete(coro)
 
 # This is the main class. Everything passes through this!
@@ -37,7 +37,7 @@ class Bot:
     # Connect to the server...
     async def connect(self):
         try:
-            log.log_file()
+
             print("Trying to connect to the server...")
             print("server: ", self.config["server"], " port: ", self.config["port"])
             self.sock.connect((self.config["server"], self.config["port"]))
@@ -46,7 +46,7 @@ class Bot:
             print("There was an exception....")
             print("Please look into the log file...")
             print("Exception: ", e)
-            log.report_error(e)
+
 
     # Kill the bot
     def kill(self):
@@ -58,7 +58,7 @@ class Bot:
             self.sock.send(("MODE {0} +B\r\n".format(self.config['nick'])).encode('UTF-8'))        
         except Exception as e:
             print("There was an error setting mode...")
-            log.report_error(e)
+
 
     async def identify(self):
 
@@ -68,7 +68,7 @@ class Bot:
             self.sock.send(("PRIVMSG NICKSERV IDENTIFY {0}\r\n".format(password1).encode('UTF-8')))
         except Exception as e:
             print("There was an error identifying...")
-            log.report_error(e)       
+      
     #def register_nickserv(self):
         #self.sock.send("MSG NICKSERV REGISTER {0} myfakeemail@email.org\r\n".format(self.config['pass']).encode('UTF-8'))
 
@@ -78,7 +78,7 @@ class Bot:
             self.sock.send(data.encode('UTF-8'))
         except Exception as e:
             print("There was an error sending the data...\n {0}".format(e))
-            log.report_error(e)
+
 
     # Send a privmsg to a channel
     async def send_message(self, msg, chan):
@@ -87,7 +87,7 @@ class Bot:
             self.sock.send(("PRIVMSG {} :{}\r\n".format(chan, msg)).encode('UTF-8'))
         except Exception as e:
             print("There was an error sending the message...")
-            log.report_error(e)
+
 
     """
         if you want to join more then one channel, please make a list when
@@ -108,7 +108,7 @@ class Bot:
 
         except Exception as e:
             print("There was an exception..")
-            log.report_error(e)
+
             
     async def join_python(self):
         try:
@@ -132,7 +132,7 @@ class Bot:
                 data = str(data)
                 return data
         except Exception as e:
-            log.report_error(e)
+            print(e)
 
     async def send_user(self):
         try:
@@ -144,8 +144,8 @@ class Bot:
             )
             exe(self.send_data(usr))
         except Exception as e:
-            print("There was an error sending the user...")
-            log.report_error(e)
+            print("There was an error sending the user...",e)
+
 
     async def send_nick(self):
         try:
@@ -155,7 +155,7 @@ class Bot:
             print(nick)
         except Exception as e:
             print("There was an error sending the nick...")
-            log.report_error(e)
+
 
     async def command(self, data_sent):
         try:
@@ -174,4 +174,4 @@ class Bot:
                 exe( self.send_message(payload, channel_data_was_sent[0]) )
         except Exception as e:
             print("There was an error sending the data")
-            log.report_error(e)
+

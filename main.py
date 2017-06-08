@@ -2,21 +2,25 @@
 import optparse
 import asyncio
 import time
-from core import log
+
 from core.bot_class import Bot
 
 loop = asyncio.get_event_loop()
-def exe(coro): return loop.run_until_complete(coro)
+async def wait(coro): return await coro
+def exe(coro): return loop.run_until_complete(wait(coro))
 
-config = {"server": "irc.anonops.com", "port": 6697, "chans": ["#bots", "#python"]}
+config = {"server": "irc.anonops.com", "port": 6697, "chans": ["#bots", "#python","#optraining","#gnu"]}
 
 #Main loop
 def authenticate():
     global test
-    test = Bot(config["server"], config["port"], ["#bots", "#python"])
+    test = Bot(config["server"], config["port"], ["#bots", "#python","#optraining","#gnu"])
     exe( test.connect() )
     data = str( exe( test.recv_data() ))
-    log.log_write(data)
+    exe( test.send_nick() )
+    exe( test.send_user() )
+    exe( test.send_nick() )
+    exe( test.send_user() )
     exe( test.send_nick() )
     exe( test.send_user() )
     #test.register_nickserv()
@@ -31,7 +35,8 @@ def authenticate():
     exe( test.identify() )        
     exe( test.mode_set() )
     exe( test.mode_set() )
-    exe( test.mode_set() )             
+    exe( test.mode_set() )
+    exe( test.identify() )              
     receive_data(test) 
 
     #exe( test.send_message("Hello!", config["chans"]) )
